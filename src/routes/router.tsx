@@ -1,3 +1,4 @@
+// 🔵 unchanged
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 import DashboardLayout from "../layout/DashboardLayout";
@@ -6,6 +7,10 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AddTeacher from "../pages/AddTeacher";
 import TeachersList from "../pages/TeachersList";
+
+// 🟢 new imports
+import AddStudent from "../pages/AddStudent";
+import StudentsList from "../pages/ViewStudent"; 
 
 const router = createBrowserRouter([
   {
@@ -18,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/add-teacher",
-    element: <AddTeacher/>
+    element: <AddTeacher />,
   },
   {
     path: "/dashboard/teachers",
@@ -30,11 +35,19 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <DashboardLayout />
       </ProtectedRoute>
-    ), 
+    ),
     children: [
       {
         path: "",
         element: <Dashboard />,
+      },
+      {
+        path: "add-student", // 🟢 nested path becomes /dashboard/add-student
+        element: <AddStudent />,
+      },
+      {
+        path: "students", // 🟢 nested path becomes /dashboard/students
+        element: <StudentsList />,
       },
     ],
   },
