@@ -41,7 +41,7 @@ const DashboardLayout = () => {
   };
 
   const sidebarItems = [
-    { label: "Add Teacher", icon: <PersonAdd />, path: "/dashboard/add-teacher" },
+    { label: "Add Teacher", icon: <PersonAdd />, path: "/add-teacher" },
     { label: "Add Student", icon: <School />, path: "/dashboard/add-student" },
     { label: "View Teachers", icon: <Group />, path: "/dashboard/teachers" },
     { label: "View Students", icon: <People />, path: "/dashboard/students" },
