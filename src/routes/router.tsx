@@ -7,6 +7,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AddTeacher from "../pages/AddTeacher";
 import TeachersList from "../pages/TeachersList";
+import UploadStudentCSV from "../pages/UploadStudentCSV";
+import ForgotPassword from "../pages/ForgotPassword";
 
 // 🟢 new imports
 import AddStudent from "../pages/AddStudent";
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/add-teacher",
     element: <AddTeacher />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />
   },
   {
     path: "/dashboard/teachers",
@@ -49,6 +55,10 @@ const router = createBrowserRouter([
         path: "students", // 🟢 nested path becomes /dashboard/students
         element: <StudentsList />,
       },
+      {
+        path: "students/upload",
+        element: <UploadStudentCSV/>
+      }
     ],
   },
 ]);

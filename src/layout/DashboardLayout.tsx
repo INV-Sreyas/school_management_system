@@ -19,6 +19,7 @@ import {
   People,
   School,
   Group,
+  CloudUpload as UploadIcon,
 } from "@mui/icons-material";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -45,6 +46,7 @@ const DashboardLayout = () => {
     { label: "Add Student", icon: <School />, path: "/dashboard/add-student" },
     { label: "View Teachers", icon: <Group />, path: "/dashboard/teachers" },
     { label: "View Students", icon: <People />, path: "/dashboard/students" },
+    { label: "Upload Students", icon: <UploadIcon />, path: "/dashboard/students/upload" },
   ];
 
   return (

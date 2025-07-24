@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_ENDPOINTS } from "../api/apiConstants";
 
 interface StudentData {
   id: number;
@@ -30,7 +31,7 @@ const initialState: StudentState = {
 export const fetchStudents = createAsyncThunk("students/fetchAll", async (_, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get("http://localhost:8000/api/students/", {
+    const response = await axios.get(API_ENDPOINTS.VIEW_STUDENTS, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
