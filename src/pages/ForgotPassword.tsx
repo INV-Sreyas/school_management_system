@@ -3,29 +3,37 @@ import { useForm } from 'react-hook-form';
 import { Box, Button, TextField, Typography, Alert } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import api from '../api/interceptor'; // 🔵 Adjust path as per your project
+import api from '../api/interceptor'; // ✅ Correct usage
 
+// 🟢 1. Define form schema
 const schema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
 });
 
 const ForgotPassword = () => {
+  // 🟢 2. Setup react-hook-form
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const [serverMessage, setServerMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
 
+  // 🟢 3. Form submit handler
   const onSubmit = async (data: any) => {
     try {
       const response = await api.post('/accounts/password_reset/', { email: data.email });
-      setServerMessage('Password reset email sent. Please check your inbox.');
+      setServerMessage(response.data.message || 'Password reset email sent. Please check your inbox.');
+      setErrorMessage('');
+      reset();
     } catch (error: any) {
-      setServerMessage('Something went wrong. Please try again.');
+      setErrorMessage(error.response?.data?.error || 'Something went wrong. Please try again.');
+      setServerMessage('');
     }
   };
 
@@ -35,6 +43,7 @@ const ForgotPassword = () => {
       <Typography variant="body1" mb={3}>
         Enter your email address and we’ll send you a link to reset your password.
       </Typography>
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
           fullWidth
@@ -48,9 +57,16 @@ const ForgotPassword = () => {
           Send Reset Email
         </Button>
       </form>
+
+      {/* 🟢 Show success or error message */}
       {serverMessage && (
-        <Alert severity="info" sx={{ mt: 3 }}>
+        <Alert severity="success" sx={{ mt: 3 }}>
           {serverMessage}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert severity="error" sx={{ mt: 3 }}>
+          {errorMessage}
         </Alert>
       )}
     </Box>
