@@ -13,6 +13,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 // 🟢 new imports
 import AddStudent from "../pages/AddStudent";
 import StudentsList from "../pages/ViewStudent"; 
+import ExamSubmitted from "../pages/ExamSubmitted";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard/teachers",
     element: <TeachersList />,
+  },
+  {
+    path : "/student/exam/:id/complete",
+    element :<ExamSubmitted/>
   },
   {
     path: "/dashboard",
