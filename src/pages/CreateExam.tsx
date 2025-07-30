@@ -25,7 +25,7 @@ const CreateExam = () => {
     }
 
     try {
-      const response = await api.post('/create-exam/', {
+      const response = await api.post('/exams/exams/create/', {
         title,
         subject,
       });

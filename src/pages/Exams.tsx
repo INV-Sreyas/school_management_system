@@ -28,7 +28,7 @@ const ExamsList = () => {
 
   const fetchExams = async () => {
     try {
-      const response = await api.get('/exams/');
+      const response = await api.get('/exams/exams/');
       setExams(response.data);
     } catch (error) {
       toast.error('Failed to load exams.');

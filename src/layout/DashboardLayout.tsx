@@ -28,7 +28,7 @@ import { useState } from "react";
 const drawerWidth = 240;
 
 const DashboardLayout = () => {
-  const { logout } = useAuth();
+  const { logout, role } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
 
@@ -41,13 +41,32 @@ const DashboardLayout = () => {
     setOpen(!open);
   };
 
-  const sidebarItems = [
-    { label: "Add Teacher", icon: <PersonAdd />, path: "/add-teacher" },
-    { label: "Add Student", icon: <School />, path: "/dashboard/add-student" },
-    { label: "View Teachers", icon: <Group />, path: "/dashboard/teachers" },
-    { label: "View Students", icon: <People />, path: "/dashboard/students" },
-    { label: "Upload Students", icon: <UploadIcon />, path: "/dashboard/students/upload" },
-  ];
+  const getSidebarItems = () => {
+    if (role === "admin") {
+      return [
+        { label: "Add Teacher", icon: <PersonAdd />, path: "/add-teacher" },
+        { label: "Add Student", icon: <School />, path: "/dashboard/add-student" },
+        { label: "View Teachers", icon: <Group />, path: "/dashboard/teachers" },
+        { label: "View Students", icon: <People />, path: "/dashboard/students" },
+        { label: "Upload Students", icon: <UploadIcon />, path: "/dashboard/students/upload" },
+      ];
+    } else if (role === "student") {
+      return [
+        { label: "My Exams", icon: <School />, path: "/student/exams" },
+        { label: "Results", icon: <School />, path: "/student/results" },
+      ];
+    } else if (role === "teacher") {
+      return [
+        { label: "View Students", icon: <People />, path: "/dashboard/students" },
+        { label: "Create Exam", icon: <School />, path: "/create-exam" },
+        { label: "Exams", icon: <School />, path: "/exams" },
+      ];
+    } else {
+      return [];
+    }
+  };
+  
+  const sidebarItems = getSidebarItems();
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>

@@ -6,9 +6,9 @@ import {
   Button,
   Typography,
   Alert,
-  Link as MuiLink, // 🟢 Added for MUI Link styling
+  Link as MuiLink,
 } from "@mui/material";
-import { useNavigate, Link } from "react-router-dom"; // 🟢 Import Link
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/interceptor";
 import { API_ENDPOINTS } from "../api/apiConstants";
 import { useAuth } from "../context/AuthContext";
@@ -34,9 +34,12 @@ const Login = () => {
       });
 
       const token = response.data.access;
+      const role = response.data.role;
       console.log("Token from login :", token);
+      console.log("Full login response:", response.data);
 
-      login(token);
+
+      login(token, role);
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");

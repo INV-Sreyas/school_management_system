@@ -21,13 +21,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setRole(savedRole);
   }, []);
 
-  const login = (token: string) => {
+  const login = (token: string, role: string) => {
     console.log("Token : ", token);
     
     localStorage.setItem("token", token);
-    localStorage.setItem("role", role??"guest");
+    localStorage.setItem("role", role);
     setIsAuthenticated(true);
-    setRole(role??"guest")
+    setRole(role)
   };
 
   const logout = () => {

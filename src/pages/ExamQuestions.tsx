@@ -33,7 +33,7 @@ const ExamQuestions = () => {
 
   const fetchQuestions = async () => {
     try {
-      const res = await api.get(`/exam/${examId}/questions/`);
+      const res = await api.get(`exams/exams/${examId}/questions/`);
       setQuestions(res.data);
     } catch (err) {
       toast.error('Failed to load questions.');
@@ -53,7 +53,7 @@ const ExamQuestions = () => {
     }
 
     try {
-      await api.post('/add-question/', {
+      await api.post(`exams/questions/add/`, {
         exam_id: examId,
         text,
         option1,
@@ -78,6 +78,8 @@ const ExamQuestions = () => {
       toast.error(msg);
     }
   };
+
+  console.log("Fetched Questions:", questions);
 
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>

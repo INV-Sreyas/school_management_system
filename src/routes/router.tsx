@@ -14,6 +14,9 @@ import ForgotPassword from "../pages/ForgotPassword";
 import AddStudent from "../pages/AddStudent";
 import StudentsList from "../pages/ViewStudent"; 
 import ExamSubmitted from "../pages/ExamSubmitted";
+import CreateExam from "../pages/CreateExam";
+import ExamsList from "../pages/Exams";
+import ExamQuestions from "../pages/ExamQuestions";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +38,18 @@ const router = createBrowserRouter([
   {
     path: "/dashboard/teachers",
     element: <TeachersList />,
+  },
+  {
+    path : "/create-exam",
+    element : <CreateExam/>
+  },
+  {
+    path : "/exams",
+    element : <ExamsList/>
+  },
+  {
+    path : "/exam/:id/",
+    element : <ExamQuestions/>
   },
   {
     path : "/student/exam/:id/complete",
