@@ -1,3 +1,4 @@
+// 🔵 unchanged
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 import DashboardLayout from "../layout/DashboardLayout";
@@ -6,6 +7,16 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AddTeacher from "../pages/AddTeacher";
 import TeachersList from "../pages/TeachersList";
+import UploadStudentCSV from "../pages/UploadStudentCSV";
+import ForgotPassword from "../pages/ForgotPassword";
+
+// 🟢 new imports
+import AddStudent from "../pages/AddStudent";
+import StudentsList from "../pages/ViewStudent"; 
+import ExamSubmitted from "../pages/ExamSubmitted";
+import CreateExam from "../pages/CreateExam";
+import ExamsList from "../pages/Exams";
+import ExamQuestions from "../pages/ExamQuestions";
 
 const router = createBrowserRouter([
   {
@@ -18,11 +29,31 @@ const router = createBrowserRouter([
   },
   {
     path: "/add-teacher",
-    element: <AddTeacher/>
+    element: <AddTeacher />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />
   },
   {
     path: "/dashboard/teachers",
     element: <TeachersList />,
+  },
+  {
+    path : "/create-exam",
+    element : <CreateExam/>
+  },
+  {
+    path : "/exams",
+    element : <ExamsList/>
+  },
+  {
+    path : "/exam/:id/",
+    element : <ExamQuestions/>
+  },
+  {
+    path : "/student/exam/:id/complete",
+    element :<ExamSubmitted/>
   },
   {
     path: "/dashboard",
@@ -30,12 +61,24 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <DashboardLayout />
       </ProtectedRoute>
-    ), 
+    ),
     children: [
       {
         path: "",
         element: <Dashboard />,
       },
+      {
+        path: "add-student", // 🟢 nested path becomes /dashboard/add-student
+        element: <AddStudent />,
+      },
+      {
+        path: "students", // 🟢 nested path becomes /dashboard/students
+        element: <StudentsList />,
+      },
+      {
+        path: "students/upload",
+        element: <UploadStudentCSV/>
+      }
     ],
   },
 ]);

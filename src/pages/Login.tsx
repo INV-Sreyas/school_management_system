@@ -6,8 +6,9 @@ import {
   Button,
   Typography,
   Alert,
+  Link as MuiLink,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/interceptor";
 import { API_ENDPOINTS } from "../api/apiConstants";
 import { useAuth } from "../context/AuthContext";
@@ -21,8 +22,8 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-     console.log("Submitting login form");
-     console.log({ username, password });
+    console.log("Submitting login form");
+    console.log({ username, password });
 
     setError("");
 
@@ -33,10 +34,12 @@ const Login = () => {
       });
 
       const token = response.data.access;
+      const role = response.data.role;
       console.log("Token from login :", token);
-      
-      // localStorage.setItem("token", token)
-      login(token); // Store token in context + localStorage
+      console.log("Full login response:", response.data);
+
+
+      login(token, role);
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
@@ -78,8 +81,15 @@ const Login = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            sx={{ mb: 2 }}
+            sx={{ mb: 1 }}
           />
+
+          {/* 🟢 Forgot Password Link */}
+          <Typography variant="body2" align="right" sx={{ mb: 2 }}>
+            <MuiLink component={Link} to="/forgot-password" underline="hover">
+              Forgot Password?
+            </MuiLink>
+          </Typography>
 
           <Button type="submit" variant="contained" fullWidth>
             Login
